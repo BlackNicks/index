@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <title>Nosso Amor ❤️</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+.start-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+   background: rgba(0, 0, 0, 0.842);
+}
+.start-button {
+  padding: 20px 40px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: transparent; /* sem fundo */
+  border: 2px solid crimson;     /* borda vermelha */
+  border-radius: 10px;
+  color: crimson;                /* cor do texto igual à borda */
+  transition: background-color 0.3s, color 0.3s; /* animação suave */
+}
+
+.start-button:hover {
+  background-color: crimson;    /* fundo ao passar mouse */
+  color: white;                 /* texto branco no hover */
+}
+
+.main-content {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.842); /* deixa o fundo sólido */
+}
+.carousel {
+  width: 80%;
+  max-width: 600px;
+  height: 400px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+.carousel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.player {
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+  color: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.player-header-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.player-header-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  animation: rotate 5s linear infinite;
+  animation-play-state: paused;
+}
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.player-info {
+  display: flex;
+  flex-direction: column;
+}
+.player-info strong {
+  font-size: 16px;
+}
+.player-info span {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 2px;
+}
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+.controls i {
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+}
+.controls i:hover {
+  color: #d43072;
+}
+.controls .bi-pause-circle-fill,
+.controls .bi-play-circle-fill {
+  font-size: 28px;
+}
+.progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #ccc;
+}
+.progress-bar {
+  position: relative;
+  height: 5px;
+  background: #444;
+  border-radius: 5px;
+  margin: 0 5px;
+  flex: 1;
+  cursor: pointer;
+}
+.progress {
+  position: absolute;
+  height: 5px;
+  background: #d43072;
+  border-radius: 5px;
+  width: 0%;
+}
+.progress-ball {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background-color: #e41769;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: left 0.05s linear;
+}
+
+/* ❤️ AMOR - TIMER */
+.love-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+  text-align: center;
+}
+
+#love-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #ff6b81;
+}
+
+#timer {
+  font-size: 20px;
+  max-width: 90%;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  #love-title {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
+  #timer {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    width: 95%;
+    height: 450px; /* altura reduzida para telas menores */
+  }
+
+  .player {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .player-info strong {
+    font-size: 14px;
+  }
+
+  .player-info span {
+    font-size: 11px;
+  }
+
+  .controls i {
+    font-size: 16px;
+  }
+
+  .controls .bi-pause-circle-fill,
+  .controls .bi-play-circle-fill {
+    font-size: 24px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+<div class="start-screen">
+  <button class="start-button" onclick="startSite()">💖Click aqui💖</button>
+</div>
+
+<div class="main-content">
+    <div class="player">
+        <div class="player-header">
+            <div class="player-header-icon">
+                <img id="albumCover" src="img/Luan_Santana_Incondicional.jpg" alt="Album Cover">
+              </div>          
+          <div class="player-info">
+            <strong>Incondicional</strong>
+            <span>De Luan Santana</span>
+          </div>
+        </div>
+    
+        <audio id="audio" src="Incondicional   Luan Santana  Videoclipe OFICIAL-7970fa75e979496d92d7dcd7625b72f9.mp3"></audio>
+    
+        <div class="controls">
+          <i id="muteBtn" class="bi bi-volume-up-fill" onclick="toggleMute()"></i>
+          <i class="bi bi-skip-backward-fill" onclick="rewind()"></i>
+          <i id="playPauseBtn" class="bi bi-pause-circle-fill" onclick="togglePlay()"></i>
+          <i class="bi bi-skip-forward-fill" onclick="forward()"></i>
+          <i id="heartIcon" class="bi bi-heart" onclick="toggleHeart()"></i>
+        </div>
+    
+        <div class="progress-container">
+          <span id="currentTime">0:00</span>
+          <div class="progress-bar" onclick="seek(event)">
+            <div class="progress" id="progressBar"></div>
+            <div class="progress-ball" id="progressBall"></div>
+          </div>
+          
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+  <div class="carousel">
+    <img id="carousel-image" src="img/IMG-20221225-WA0003.jpg" alt="Foto" width="10%" height="10%">
+  </div>
+
+  
+    <div class="love-container">
+      <div id="love-title">💖 Eu te amo há: 💖</div>
+      <div id="timer">⏳ Carregando tempo de namoro...</div>
+    </div>
+
+  <hr width="100%">
+<p style="text-align: center; font-size: 18px; padding: 20px; margin: auto;">
+  Meu amor, cada segundo ao seu lado é uma bênção. Desde o dia em que você entrou na minha vida, tudo ficou mais bonito, mais leve e cheio de sentido. Obrigado por me fazer sentir amado, completo e feliz. Te amo ontem, hoje e para sempre. ❤️
+</p>
+
+</div>
+
+<script>
+    const progressBall = document.getElementById('progressBall');
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeText = document.getElementById('currentTime');
+    const durationText = document.getElementById('duration');
+    const albumCover = document.getElementById('albumCover');
+    const barra = document.querySelector('.progress'); // barra de progresso
+
+// Evento disparado quando a música termina
+audio.addEventListener('ended', () => {
+  barra.style.width = '0%'; // volta a barra para o início
+  progressBall.style.left = '0%'; // move o ponto para o início
+  currentTimeText.textContent = '0:00'
+  playPauseBtn.classList.remove('bi-pause-circle-fill'); // remove ícone de pausa
+  playPauseBtn.classList.add('bi-play-circle-fill'); // mostra ícone de play
+});
+
+
+
+    audio.addEventListener('loadedmetadata', () => {
+      durationText.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('timeupdate', () => {
+  const progressPercent = (audio.currentTime / audio.duration) * 100;
+  progressBar.style.width = `${progressPercent}%`;
+  progressBall.style.left = `${progressPercent}%`; // atualiza a bolinha
+  currentTimeText.textContent = formatTime(audio.currentTime);
+});
+
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.classList.remove('bi-play-circle-fill');
+        playPauseBtn.classList.add('bi-pause-circle-fill');
+        albumCover.style.animationPlayState = 'running';
+      } else {
+        audio.pause();
+        playPauseBtn.classList.remove('bi-pause-circle-fill');
+        playPauseBtn.classList.add('bi-play-circle-fill');
+        albumCover.style.animationPlayState = 'paused';
+      }
+    }
+
+    function rewind() {
+      audio.currentTime = Math.max(0, audio.currentTime - 10);
+    }
+
+    function forward() {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+    }
+
+   function toggleMute() {
+  audio.muted = !audio.muted;
+  const muteBtn = document.getElementById('muteBtn');
+
+  if (audio.muted) {
+    muteBtn.classList.remove('bi-volume-up-fill');
+    muteBtn.classList.add('bi-volume-mute-fill');
+  } else {
+    muteBtn.classList.remove('bi-volume-mute-fill');
+    muteBtn.classList.add('bi-volume-up-fill');
+  }
+
+}
+    function toggleHeart() {
+    const heartIcon = document.getElementById('heartIcon');
+
+    if (heartIcon.classList.contains('bi-heart')) {
+    heartIcon.classList.remove('bi-heart');
+    heartIcon.classList.add('bi-heart-fill');
+    } else {
+    heartIcon.classList.remove('bi-heart-fill');
+    heartIcon.classList.add('bi-heart');
+    }
+}
+
+
+    function seek(e) {
+      const bar = e.currentTarget;
+      const rect = bar.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const percent = offsetX / bar.offsetWidth;
+      audio.currentTime = percent * audio.duration;
+      progressBall.style.left = `${percent * 100}%`;
+
+    }
+
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60);
+      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+  const imagens = [
+    'img/IMG_20230101_001430_627.jpg',
+    'img/20240924_235836.jpg',
+    'img/IMG-20201214-WA0029.jpg'
+  ];
+  let index = 0;
+  function startCarousel() {
+    setInterval(() => {
+      index = (index + 1) % imagens.length;
+      document.getElementById('carousel-image').src = imagens[index];
+    }, 3000);
+  }
+
+  function updateTimer() {
+  const startDate = new Date('2020-12-14T00:00:00');
+  setInterval(() => {
+    const now = new Date();
+
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
+    let days = now.getDate() - startDate.getDate();
+
+    if (days < 0) {
+      months--;
+      const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+      days += previousMonth.getDate();
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+
+    document.getElementById("timer").innerText =
+      `${years} anos, ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos.`;
+  }, 1000);
+}
+
+
+  function startSite() {
+    document.querySelector('.start-screen').style.display = 'none';
+    document.querySelector('.main-content').style.display = 'flex';
+    document.getElementById('audio').play();
+    albumCover.style.animationPlayState = 'running';
+    startCarousel();
+    updateTimer();
+  }
+</script>
+
+</body>
+</html>
